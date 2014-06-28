@@ -5,9 +5,6 @@ from distutils.core import setup
 
 execfile('clowncar/version.py')
 
-with open('requirements.txt') as requirements:
-    required = requirements.read().splitlines()
-
 kwargs = {
     "name": "clowncar",
     "version": str(__version__),
@@ -21,7 +18,6 @@ kwargs = {
     "author_email": "gary@byoteki.com",
     "maintainer_email": "gary@byoteki.com",
     "license": "MIT",
-    "install_requires": required,
     "url": "https://github.com/gmjosack/clowncar",
     "download_url": "https://github.com/gmjosack/clowncar/archive/master.tar.gz",
     "classifiers": [
