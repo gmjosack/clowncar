@@ -15,8 +15,8 @@ def test_backend_creation():
     backend = Backends(["localhost:8888", "localhost:8989"], "pkey")
     assert backend.servers == [("localhost", 8888), ("localhost", 8989)]
 
-def test_markbad():
-    """ Test marking down the active server."""
+def test_markdead():
+    """ Test marking the active server dead."""
 
     backend = Backends([
         "localhost:8881",
@@ -27,13 +27,13 @@ def test_markbad():
     ], "pkey")
 
     assert backend.server == ("localhost", 8884)
-    backend.mark_bad(backend.server, .2)
+    backend.server.mark_dead(.2)
     assert backend.server == ("localhost", 8885)
     time.sleep(.3)
     assert backend.server == ("localhost", 8884)
 
 def test_nobackends():
-    """ Test marking down the active server."""
+    """ Test when all backends have been marked dead."""
 
     backend = Backends([
         "localhost:8881",
@@ -41,9 +41,9 @@ def test_nobackends():
     ], "pkey")
 
     assert backend.server == ("localhost", 8882)
-    backend.mark_bad(backend.server, .2)
+    backend.server.mark_dead(.2)
     assert backend.server == ("localhost", 8881)
-    backend.mark_bad(backend.server, .2)
+    backend.server.mark_dead(.2)
 
     with pytest.raises(NoAvailableBackends):
         backend.server
