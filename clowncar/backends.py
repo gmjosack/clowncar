@@ -8,14 +8,27 @@ from .server import Server
 
 class Backends(object):
     def __init__(self, servers, partition_key):
+        self._dead = {}
         self._get_servers = self._normalize_servers(servers)
         self._get_partition_key = self._normalize_partition_key(partition_key)
+
+    def mark_dead(self, server, retry):
+        self._dead[server.as_tuple()] = time.time() + retry
+
+    def is_dead(self, server):
+        pair = server.as_tuple()
+        dead_until = self._dead.get(pair)
+        if dead_until:
+            if dead_until > time.time():
+                return True
+            del self._dead[pair]
+        return False
 
     @property
     def servers(self):
         servers = []
         for server in self._get_servers():
-            if server.dead:
+            if self.is_dead(server):
                 continue
             servers.append(server)
         return servers

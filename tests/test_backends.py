@@ -27,7 +27,7 @@ def test_markdead():
     ], "pkey")
 
     assert backend.server == ("localhost", 8884)
-    backend.server.mark_dead(.2)
+    backend.mark_dead(backend.server, .2)
     assert backend.server == ("localhost", 8885)
     time.sleep(.3)
     assert backend.server == ("localhost", 8884)
@@ -41,9 +41,9 @@ def test_nobackends():
     ], "pkey")
 
     assert backend.server == ("localhost", 8882)
-    backend.server.mark_dead(.2)
+    backend.mark_dead(backend.server, .2)
     assert backend.server == ("localhost", 8881)
-    backend.server.mark_dead(.2)
+    backend.mark_dead(backend.server, .2)
 
     with pytest.raises(NoAvailableBackends):
         backend.server

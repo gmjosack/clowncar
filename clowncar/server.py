@@ -3,29 +3,13 @@ import time
 from . import exc
 
 
-_DEFAULT_DOWN_RETRY = 30
-
-
 class Server(object):
-    def __init__(self, hostname, port, dead_retry=_DEFAULT_DOWN_RETRY):
+    def __init__(self, hostname, port):
         self.hostname = hostname
         self.port = int(port)
-        self.dead_retry = dead_retry
-        self.dead_until = None
-
-    @property
-    def dead(self):
-        if self.dead_until and self.dead_until > time.time():
-            return True
-        self.dead_until = None
-        return False
 
     def as_tuple(self):
         return (self.hostname, self.port)
-
-    def mark_dead(self, retry=None):
-        retry = self.dead_retry if retry is None else retry
-        self.dead_until = time.time() + retry
 
     def __hash__(self):
         return hash(self.as_tuple())
