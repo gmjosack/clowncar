@@ -9,7 +9,7 @@ kwargs = {
     "name": "clowncar",
     "version": str(__version__),
     "packages": ["clowncar"],
-    "description": "Store and retrieve TOTP secrets/tokens.",
+    "description": "Simple client side load balancing module.",
     # PyPi, despite not parsing markdown, will prefer the README.md to the
     # standard README. Explicitly read it here.
     "long_description": open("README").read(),
