@@ -22,4 +22,4 @@ class Server(object):
     def __ge__(self, other): return self.as_tuple() >= other
 
     def __repr__(self):
-        return "Server({}, {}, {})".format(self.hostname, self.port, self.dead_retry)
+        return "Server({}, {}, {})".format(self.hostname, self.port)
