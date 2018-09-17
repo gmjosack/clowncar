@@ -3,7 +3,7 @@
 import setuptools
 from distutils.core import setup
 
-execfile('clowncar/version.py')
+exec(open('clowncar/version.py').read())
 
 kwargs = {
     "name": "clowncar",
