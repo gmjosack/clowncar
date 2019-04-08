@@ -21,7 +21,8 @@ kwargs = {
     "url": "https://github.com/gmjosack/clowncar",
     "download_url": "https://github.com/gmjosack/clowncar/archive/master.tar.gz",
     "classifiers": [
-        "Programming Language :: Python",
+        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
         "Topic :: Software Development",
         "Topic :: Software Development :: Libraries",
         "Topic :: Software Development :: Libraries :: Python Modules",

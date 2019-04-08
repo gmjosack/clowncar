@@ -5,6 +5,14 @@ from socket import gethostname
 from . import exc
 from .server import Server
 
+# Handle string detection without adding a dependency on any external modules.
+try:
+    basestring = basestring
+    bytes = str
+except NameError:
+    # basestring is undefined, must be Python 3.
+    basestring = (str, bytes)
+
 
 class Backends(object):
     def __init__(self, servers, partition_key):
@@ -70,7 +78,9 @@ class Backends(object):
 
         if callable(partition_key):
             return partition_key
-        elif isinstance(partition_key, basestring):
+        elif isinstance(partition_key, bytes):
             return lambda: partition_key
+        elif isinstance(partition_key, basestring):
+            return lambda: partition_key.encode()
 
         raise TypeError("Invalid type to partition_key argument.")
